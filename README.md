@@ -10,7 +10,7 @@ Speed oriented DOM manipulation library. For targeted manipulating of single HTM
 * [Without Fragment](#no-fragment)
 * [With Fragment](#fragment)
 * [Library API](#api)
-* [Tests](#test)
+* [Test & Build](#test)
 
 <a name="purpose"></a>
 ##Purpose
@@ -22,7 +22,7 @@ Using this approach can do a lot to speed up your DOM interaction.
 ####Notes
 I have been using this little library for a few years now. I find it to be very solid and useful where speed is important. 
 
-<a name="no-fragment"></a> 
+<a name="install"></a> 
 ##Install
 Include the singular library file into your project. 
 A reference to the `dom` object will now be globally available in your project.
@@ -127,11 +127,15 @@ Method                                 | Description
 
 
 <a name="test"></a> 
-##Tests
+##Test & Build
 Run `jshint` and `qunit` tests.   
 
 ```bash
-
+    
+    # testing only
     npm test
+    
+    # test and build
+    npm run build
 
 ```
