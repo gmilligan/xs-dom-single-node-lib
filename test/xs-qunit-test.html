@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QUnit xs-dom-single test</title>
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.14.0.css">
+    <script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
+    <script src="../xs-dom-single-node-lib.js"></script>
+    <script>
+        /*
+        Test xs-dom-single library
+          -- insure most basic functionality
+         */
+        function runTest() {
+            var main = document.getElementById('main');
+            QUnit.test('dom.insert - pass element as id string', function () {
+                dom.insert('#main', 'h2', 'refer to id as string', {style: 'color:blue;'});
+                ok(main.getElementsByTagName('h2').length == 1);
+            });
+            QUnit.test('dom.insert - pass element as class name', function() {
+                dom.insert('.main', 'h3', 'refer to class as string', {style: 'color:orange;font-size:24px;'});
+                ok(document.getElementsByTagName('h3').length == 1);
+            });
+            QUnit.test('dom.insert - pass element as node', function(){
+                dom.insert(main, 'h4', 'refer to node directly', {style: 'color:purple;'});
+                ok(main.getElementsByTagName('h4').length == 1);
+            });
+            QUnit.test('dom.insert - setting attributes', function(){
+                dom.insert(main, 'h5', 'Setting attributes', {class: 'my-class', style: 'color:orange;'});
+                ok(main.getElementsByTagName('h5').length == 1);
+                ok(main.getElementsByTagName('h5')[0].className == 'my-class');
+            });
+
+            QUnit.test('dom.insert - fragment', function(){
+                dom.startFragment();
+                dom.insert(main, 'p', 'append 1 to fragment', {style:'color:red;'});
+                dom.insert(main, 'p', 'append 2 to fragment', {style:'color:blue;'});
+                dom.insert(main, 'p', 'append 3 to fragment', {style:'color:green;'});
+                dom.endFragment(main);
+                ok(main.getElementsByTagName('p').length == 3);
+            });
+
+            QUnit.test('dom.remove - remove element', function() {
+                dom.remove('h4.remove-me');
+                ok( document.querySelector('h4.remove-me') == undefined);
+            });
+
+            QUnit.test('dom.removeAll - delete list items', function() {
+                var list = document.getElementById('list');
+                dom.removeAll('#list');
+                ok( list.getElementsByTagName('li').length < 1 );
+            });
+        }
+        window.onload = runTest;
+    </script>
+    <style>
+        html {
+            font-family: Helvetica, Arial, Tahoma, Verdana, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<h1>Tests for DOM JavaScript Libraries</h1>
+<div id="main" class="main"></div>
+
+<div id="parent">
+    <h4 class="remove-me">Remove single node test</h4>
+</div>
+
+
+<div id="list">
+    <ul>
+        <li>one</li>
+        <li>two</li>
+        <li>three</li>
+    </ul>
+</div>
+</body>
+</html>
